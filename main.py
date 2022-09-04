@@ -130,11 +130,12 @@ if __name__ == "__main__":
     raw_data = get_data(url)
     countries, data = parse_data(raw_data)
     upload_data(countries, data)
+    logging.info(get_time() + " - Program finished")
     # main()
     commit_message = get_time() + " - Updated data"
     git.Repo().git.add(".")
     git.Repo().git.commit("-m", commit_message)
-    logging.info(get_time() + " - Program finished")
+    git.Repo().git.push()
 
     # while True:
     #     if time.gmtime(
