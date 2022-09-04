@@ -87,7 +87,8 @@ def upload_data(countries, data):
     :return:
     """
     logging.info("Uploading countries to S3 bucket")
-    with open("countries.json", "w") as outfile:
+
+    with open("data/countries.json", "w") as outfile:
         json.dump(countries, outfile)
     # upload_file("countries.json")
     # logging.info(get_time() + " - Uploaded countries.json")
@@ -95,7 +96,7 @@ def upload_data(countries, data):
     # logging.info(get_time() + " - Deleted countries.json")
 
     for iso in countries.keys():
-        with open(iso + ".json", "w") as outfile:
+        with open("data/" + iso + ".json", "w") as outfile:
             json.dump(data[iso], outfile)
         # upload_file(iso + ".json")
         # logging.info(get_time() + " - Uploaded " + iso + ".json")
