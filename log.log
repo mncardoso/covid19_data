@@ -469,3 +469,6 @@ INFO:root:Uploading countries to S3 bucket
 INFO:root:16:01:39 - Starting program
 INFO:root:Uploading countries to S3 bucket
 INFO:root:16:01:53 - Program finished
+INFO:root:16:04:04 - Starting program
+INFO:root:Uploading countries to S3 bucket
+INFO:root:16:04:13 - Program finished
