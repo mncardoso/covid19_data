@@ -125,13 +125,10 @@ def main():
 
 if __name__ == "__main__":
     logging.info(get_time() + " - Starting program")
-    # git.
-    # repo = g.get_repo("mncardoso/covid19_data")
     raw_data = get_data(url)
     countries, data = parse_data(raw_data)
     upload_data(countries, data)
     logging.info(get_time() + " - Program finished")
-    # main()
     commit_message = get_time() + " - Updated data"
     git.Repo().git.add(".")
     git.Repo().git.commit("-m", commit_message)
