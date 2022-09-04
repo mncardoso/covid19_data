@@ -1,12 +1,8 @@
-from dotenv import load_dotenv
 import urllib.request
 import json
 import time
 import os
 import git
-
-
-load_dotenv()
 
 
 url = "https://covid.ourworldindata.org/data/owid-covid-data.json"
