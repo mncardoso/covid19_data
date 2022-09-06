@@ -85,14 +85,14 @@ def get_date():
 
 
 if __name__ == "__main__":
-    while True:
-        if time.gmtime(
-                time.time()).tm_hour == 0 and time.gmtime(
-                time.time()).tm_min == 0:
-            raw_data = get_data(url)
-            countries, data = parse_data(raw_data)
-            create_data(countries, data)
-            commit_message = "bot update ->" + get_date() + " - " + get_time()
-            git.Repo().git.add(".")
-            git.Repo().git.commit("-m", commit_message)
-            git.Repo().git.push()
+    # while True:
+    #     if time.gmtime(
+    #             time.time()).tm_hour == 0 and time.gmtime(
+    #             time.time()).tm_min == 0:
+    raw_data = get_data(url)
+    countries, data = parse_data(raw_data)
+    create_data(countries, data)
+    commit_message = "bot update ->" + get_date() + " - " + get_time()
+    git.Repo().git.add(".")
+    git.Repo().git.commit("-m", commit_message)
+    git.Repo().git.push()
