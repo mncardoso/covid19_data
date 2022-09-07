@@ -87,7 +87,7 @@ def get_date():
 if __name__ == "__main__":
     while True:
         if time.gmtime(
-                time.time()).tm_hour == 5 and time.gmtime(
+                time.time()).tm_hour == 18 and time.gmtime(
                 time.time()).tm_min == 0:
             raw_data = get_data(url)
             countries, data = parse_data(raw_data)
