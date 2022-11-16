@@ -53,11 +53,11 @@ def parse_data(raw_data):
     return countries, data
 
 def create_data(countries, data):
-    with open("data/countries.json", "w") as outfile:
+    with open("/home/pi/covid19_data/data/countries.json", "w") as outfile:
         json.dump(countries, outfile)
 
     for iso in countries.keys():
-        with open("data/" + iso + ".json", "w") as outfile:
+        with open("/home/pi/covid19_data/data/" + iso + ".json", "w") as outfile:
             json.dump(data[iso], outfile)
 
 def get_time():
@@ -85,10 +85,11 @@ def get_date():
 
 
 if __name__ == "__main__":
+    git.Repo("/home/pi/covid19_data").remotes.origin.pull()
     raw_data = get_data(url)
     countries, data = parse_data(raw_data)
     create_data(countries, data)
     commit_message = "bot update -> " + get_date() + " - " + get_time()
-    git.Repo().git.add(".")
-    git.Repo().git.commit("-m", commit_message)
-    git.Repo().git.push()
+    git.Repo("/home/pi/covid19_data").git.add(".")
+    git.Repo("/home/pi/covid19_data").git.commit("-m", commit_message)
+    git.Repo("/home/pi/covid19_data").git.push()
