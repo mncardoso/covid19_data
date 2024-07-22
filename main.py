@@ -6,6 +6,7 @@ import git
 
 
 url = "https://covid.ourworldindata.org/data/owid-covid-data.json"
+path = "path_to_repo"
 
 
 unwanted_keys = [
@@ -53,11 +54,11 @@ def parse_data(raw_data):
     return countries, data
 
 def create_data(countries, data):
-    with open("/home/pi/covid19_data/data/countries.json", "w") as outfile:
+    with open(path + "data/countries.json", "w") as outfile:
         json.dump(countries, outfile)
 
     for iso in countries.keys():
-        with open("/home/pi/covid19_data/data/" + iso + ".json", "w") as outfile:
+        with open(path + "data/" + iso + ".json", "w") as outfile:
             json.dump(data[iso], outfile)
 
 def get_time():
@@ -85,11 +86,11 @@ def get_date():
 
 
 if __name__ == "__main__":
-    git.Repo("/home/pi/covid19_data").remotes.origin.pull()
+    # git.Repo(path).remotes.origin.pull()
     raw_data = get_data(url)
     countries, data = parse_data(raw_data)
     create_data(countries, data)
-    commit_message = "bot update -> " + get_date() + " - " + get_time()
-    git.Repo("/home/pi/covid19_data").git.add(".")
-    git.Repo("/home/pi/covid19_data").git.commit("-m", commit_message)
-    git.Repo("/home/pi/covid19_data").git.push()
+    # commit_message = "bot update -> " + get_date() + " - " + get_time()
+    # git.Repo(path).git.add(".")
+    # git.Repo(path).git.commit("-m", commit_message)
+    # git.Repo(path).git.push()
