@@ -3,10 +3,7 @@ import json
 import time
 import os
 import git
-
-
-url = "https://covid.ourworldindata.org/data/owid-covid-data.json"
-path = "path_to_repo"
+from dotenv import load_dotenv
 
 
 unwanted_keys = [
@@ -24,6 +21,7 @@ def get_data(url):
     with urllib.request.urlopen(url) as url:
         data = json.loads(url.read().decode())
         return data
+
 
 def parse_data(raw_data):
     """Parse raw data into countries and data
@@ -53,6 +51,7 @@ def parse_data(raw_data):
                      "total_boosters": int(raw_data[iso]["data"][i]["total_boosters"]) if "total_boosters" in raw_data[iso]["data"][i] else 0, })
     return countries, data
 
+
 def create_data(countries, data):
     with open(path + "data/countries.json", "w") as outfile:
         json.dump(countries, outfile)
@@ -60,6 +59,7 @@ def create_data(countries, data):
     for iso in countries.keys():
         with open(path + "data/" + iso + ".json", "w") as outfile:
             json.dump(data[iso], outfile)
+
 
 def get_time():
     h = int(time.gmtime(time.time()).tm_hour)
@@ -72,6 +72,7 @@ def get_time():
     s = "0" + str(s) if s < 10 else str(s)
 
     return h + ":" + m + ":" + s
+
 
 def get_date():
     d = int(time.gmtime(time.time()).tm_mday)
@@ -86,11 +87,14 @@ def get_date():
 
 
 if __name__ == "__main__":
-    # git.Repo(path).remotes.origin.pull()
+    load_dotenv()
+    url = os.environ.get("URL")
+    path = os.environ.get("REPO")
+    git.Repo(path).remotes.origin.pull()
     raw_data = get_data(url)
     countries, data = parse_data(raw_data)
     create_data(countries, data)
-    # commit_message = "bot update -> " + get_date() + " - " + get_time()
-    # git.Repo(path).git.add(".")
-    # git.Repo(path).git.commit("-m", commit_message)
-    # git.Repo(path).git.push()
+    commit_message = "bot update -> " + get_date() + " - " + get_time()
+    git.Repo(path).git.add(".")
+    git.Repo(path).git.commit("-m", commit_message)
+    git.Repo(path).git.push()
